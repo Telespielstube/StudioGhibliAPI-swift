@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "D1F662E7-1811-4539-91E6-B6AF7F6DC46B",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "StudioGhibliAPI-swiftTests",
+        "name" : "StudioGhibliAPI-swiftTests"
+      }
+    }
+  ],
+  "version" : 1
+}
