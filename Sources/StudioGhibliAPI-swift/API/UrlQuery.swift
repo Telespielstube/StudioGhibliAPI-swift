@@ -9,9 +9,10 @@ import Foundation
 
 @available(macOS 12.0, *)
 public struct UrlQuery: Query, Filter {
-    
     let dataFetcher = DataFetcher()
-
+    
+    public init() {}
+    
     public func getAll<Data: Decodable>(endpoint: String, type: Data.Type) async throws -> [Data] {
         return try await dataFetcher.fetchData(url: endpoint, type: [Data].self)
     }

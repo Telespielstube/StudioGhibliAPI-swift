@@ -11,6 +11,8 @@ import Foundation
 ///
 @available(macOS 12.0, *)
 public class DataFetcher {
+    
+    public init() {}
 
     // Decode received JSON data set from the Ghibli API.
     //
