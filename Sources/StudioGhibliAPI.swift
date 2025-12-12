@@ -19,10 +19,10 @@ public final class StudioGhibliAPI {
 
     // Add methods to interact with the API
     public func getAllFilms() async throws -> [Film] {
-        return try await urlQuery.getAll(endpoint: "films", type: Film.self)
+        return try await query.getAll(endpoint: "films", type: Film.self)
     }
     
     public func filterFilms(by keyPath: KeyPath<Film, String>, value: String) async throws -> [Film] {
-        return try await urlQuery.filter(endpoint: "films", filterBy: keyPath, value: value)
+        return try await query.filter(endpoint: "films", filterBy: keyPath, value: value)
     }
 }
