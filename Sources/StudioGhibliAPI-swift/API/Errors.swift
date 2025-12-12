@@ -24,13 +24,12 @@ enum ParserError: Error, LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .decodingFailed(underlyingError: let error):
+        case .decodingFailed(underlyingError: error):
             return "Error occured while trying to parse JSON data: \(error.localizedDescription)"
         }
     }
 }
 
-// MARK: 
 // Enum to declare all possible network errors during runtime.
 // - Inheritances:
 //     Error: Any type that declares conformance to the Error protocol

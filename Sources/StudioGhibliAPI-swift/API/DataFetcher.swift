@@ -15,21 +15,37 @@ class DataFetcher {
     // Decode received JSON data set from the Ghibli API.
     //
     // - Parameters:
-    //         url : The endpoint for data fetching.
-    //         type: Generic type of the endpoint type e.g. films, species...
+    //      url : The endpoint for data fetching.
+    //      type: Generic type of the endpoint type e.g. films, species...
     //
-    // - Error     : NetworkError is thrown if a status code is not 200.
-    // - Returns   :
-    //         T   : Generic type of the decoded JSON data.
+    // - Returns:
+    //      T: Generic type of the decoded JSON data.
+    //
+    // - Error:
+    //      NetworkError: Is thrown if a status code is not 200.
+    //      ParserError: Is thorwn if a json parsing error occurs.
     func fetchData<T: Decodable>(url: String, type: T.Type) async throws -> T {
         let url = try buildURL(forEndpoint: url)
         let (data, response) = try await URLSession.shared.data(from: url)
-
         let urlResponse = response as? HTTPURLResponse
 
         switch urlResponse?.statusCode {
         case 200:
-            return try JSONDecoder().decode(type, from: data)
+            do {
+                let json = try JSONDecoder().decode(type, from: data)
+                return json
+            } catch let error {
+                throw ParserError.decodingFailed(
+                    underlyingError: NSError(
+                        domain: "DataFetcher",
+                        code: -1,
+                        userInfo: [
+                            NSLocalizedDescriptionKey:
+                                "Decoding Error: \(error)"
+                        ]
+                    )
+                )
+            }
         case 400, 404:
             throw NetworkError.badURLResponse(
                 underlyingError: NSError(
@@ -51,19 +67,36 @@ class DataFetcher {
             )
         }
     }
-    
+
+    // Parses the received json data.
+    //
+    // - Parameters:
+    //          data: The data that is going to be paresed by the decoder.
+    //
+    // - Returns: A generic type of parsed json data.
     private func parseJSONData<T: Decodable>(_ data: Data) async throws -> T {
         do {
             let parsedData = try JSONDecoder().decode(T.self, from: data)
         } catch let error as DecodingError {
-            throw ParserError.decodingFailed(underlyingError: error)
-                
+            throw ParserError.decodingFailed(
+                underlyingError: NSError(
+                    domain: "DataFetcher",
+                    code: -1,
+                    userInfo: [
+                        NSLocalizedDescriptionKey:
+                            "Failed to decode JSON: \(error)"
+                    ]
+                )
+            )
         }
     }
 
     // Simple helper function to build the base url and the endpoint for data fetching.
+    //
     // - Parameters:
     //    endpoint : Describes the REST resource where the data is stored.
+    //
+    // Returns: A working URL object.
     private func buildURL(forEndpoint endpoint: String) throws -> URL {
         var component = URLComponents()
         component.scheme = "https"
