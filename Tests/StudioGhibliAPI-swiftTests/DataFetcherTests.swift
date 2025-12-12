@@ -9,9 +9,9 @@ import Testing
 
 @testable import StudioGhibliAPI_swift
 
-struct Test {
+public struct Test {
 
-    @Test func testIfURLBuildThrowsErrorWhenWrongResourceIsPassed() async throws
+    @Test public func testIfURLBuildThrowsErrorWhenWrongResourceIsPassed() async throws
     {
         let dataFetcher = DataFetcher()
 
@@ -23,7 +23,7 @@ struct Test {
         }
     }
 
-    @Test func testIfURLBuildThrowsErrorWhenEmptyResourceIsPassed() async throws
+    @Test public func testIfURLBuildThrowsErrorWhenEmptyResourceIsPassed() async throws
     {
         let dataFetcher = DataFetcher()
 

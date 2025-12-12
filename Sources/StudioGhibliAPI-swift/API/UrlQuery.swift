@@ -8,15 +8,15 @@
 import Foundation
 
 @available(macOS 12.0, *)
-struct UrlQuery: Query, Filter {
+public struct UrlQuery: Query, Filter {
     
     let dataFetcher = DataFetcher()
 
-    func getAll<Data: Decodable>(endpoint: String, type: Data.Type) async throws -> [Data] {
+    public func getAll<Data: Decodable>(endpoint: String, type: Data.Type) async throws -> [Data] {
         return try await dataFetcher.fetchData(url: endpoint, type: [Data].self)
     }
     
-    func filter<T: Equatable>(endpoint: String, filterBy keyPath: KeyPath<Film, T>, value: T) async throws -> [Film] {
+    public func filter<T: Equatable>(endpoint: String, filterBy keyPath: KeyPath<Film, T>, value: T) async throws -> [Film] {
         do {
             let jsonContent = try await dataFetcher.fetchData(
                 url: endpoint,

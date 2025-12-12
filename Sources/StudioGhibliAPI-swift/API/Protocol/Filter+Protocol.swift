@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Filter Protocol
 
-protocol Filter {
+public protocol Filter {
     associatedtype Item
 
     // Filters the received data for the passed 'value' parameter.
@@ -23,7 +23,7 @@ protocol Filter {
     //          value: The value of the comparison. Could be "Spirited Away"
     //
     // - Returns: The equal object.
-    func filter<T: Equatable>(
+    public func filter<T: Equatable>(
         endpoint: String,
         filterBy keyPath: KeyPath<Film, T>,
         value: T

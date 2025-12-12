@@ -10,22 +10,22 @@ import Testing
 
 @testable import StudioGhibliAPI_swift
 
-struct FilmQueryTest {
+public struct FilmQueryTest {
     @Test
-    func helloWorld() {
+    public func helloWorld() {
         let greeting = "Hello, world!"
         #expect(greeting != "Hello")  // Expectation failed: (greeting → "Hello, world!") == "Hello"
     }
 
     @Test
-    func testIfAllFilmsAreFetched() async throws {
+    public func testIfAllFilmsAreFetched() async throws {
         let filmQuery = FilmQuery()
         let films = try await filmQuery.getAll(endpoint: "films")
         #expect(films.count > 0)
     }
 
     @Test
-    func testIfFilterFilmsByNameReturnsAtLeastOneFilmObject() async throws {
+    public func testIfFilterFilmsByNameReturnsAtLeastOneFilmObject() async throws {
         let filmQuery = FilmQuery()
         let filteredFilms: [Film] = try await filmQuery.filter(
             endpoint: "films",

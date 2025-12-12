@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct People: Codable, Identifiable {
+public struct People: Codable, Identifiable {
     let id: String
     let name: String
     let gender: String

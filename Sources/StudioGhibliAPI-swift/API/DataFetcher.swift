@@ -7,10 +7,10 @@
 
 import Foundation
 
-/// This class handles the
+/// This public class handles the
 ///
 @available(macOS 12.0, *)
-class DataFetcher {
+public class DataFetcher {
 
     // Decode received JSON data set from the Ghibli API.
     //
@@ -24,7 +24,7 @@ class DataFetcher {
     // - Error:
     //      NetworkError: Is thrown if a status code is not 200.
     //      ParserError: Is thorwn if a json parsing error occurs.
-    func fetchData<T: Decodable>(url: String, type: T.Type) async throws -> T {
+    public func fetchData<T: Decodable>(url: String, type: T.Type) async throws -> T {
         let url = try buildURL(forEndpoint: url)
         let (data, response) = try await URLSession.shared.data(from: url)
         let urlResponse = response as? HTTPURLResponse
@@ -59,7 +59,7 @@ class DataFetcher {
         }
     }
 
-    // Simple helper function to build the base url and the endpoint for data fetching.
+    // Simple helper public function to build the base url and the endpoint for data fetching.
     //
     // - Parameters:
     //    endpoint : Describes the REST resource where the data is stored.

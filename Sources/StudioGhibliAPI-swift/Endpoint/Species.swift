@@ -8,10 +8,10 @@
 import Foundation
 
 
-struct Species: Codable, Identifiable {
+public struct Species: Codable, Identifiable {
     let id: String
     let name: String
-    let classification: String
+    let public classification: String
     let eyeColors: String
     let hairColors: String
     let people: [String]
@@ -19,7 +19,7 @@ struct Species: Codable, Identifiable {
     let url: String
     
     enum CodingKeys: String, CodingKey {
-        case id, name, classification, people, films, url
+        case id, name, public classification, people, films, url
         case hairColors = "hair_colors"
         case eyeColors = "eye_colors"
     }
