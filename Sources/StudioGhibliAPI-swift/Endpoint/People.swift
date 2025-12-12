@@ -9,7 +9,7 @@ import Foundation
 
 
 public struct People: Codable, Identifiable {
-    let id: String
+    public let id: String
     let name: String
     let gender: String
     let age: String

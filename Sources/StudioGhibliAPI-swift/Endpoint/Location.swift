@@ -9,7 +9,7 @@ import Foundation
 
 
 public struct Location: Codable, Identifiable {
-    let id: String
+    public let id: String
     let name: String
     let climate: String
     let terrain: String

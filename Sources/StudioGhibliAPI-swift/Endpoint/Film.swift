@@ -9,7 +9,7 @@ import Foundation
 
 /// Codable is a typealias that can encode & decode itself from an external representation
 public struct Film: Codable, Identifiable {
-    let id: String
+    public let id: String
     let title: String
     let originalTitle: String
     let originalTitleRomanised: String

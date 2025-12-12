@@ -11,16 +11,16 @@ import Foundation
 // - Inheritances:
 //     Error: Any type that declares conformance to the Error protocol
 //            can be used to represent an error in Swift’s error handling
-//            system. Because the Error protocol has no requirements of
+//            system. Because the Error public protocol has no requirements of
 //            its own, you can declare conformance on any custom type
 //            you create.
 //     LocalizedError: A specialized error that provides localized
 //            messages describing the error and why it occurred.
 //
-enum ParserError: Error, LocalizedError {
+public enum ParserError: Error, LocalizedError {
     case decodingFailed(underlyingError: Error)
 
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .decodingFailed(underlyingError: let error):
             return
@@ -33,17 +33,17 @@ enum ParserError: Error, LocalizedError {
 // - Inheritances:
 //     Error: Any type that declares conformance to the Error protocol
 //            can be used to represent an error in Swift’s error handling
-//            system. Because the Error protocol has no requirements of
+//            system. Because the Error public protocol has no requirements of
 //            its own, you can declare conformance on any custom type
 //            you create.
 //     LocalizedError: A specialized error that provides localized
 //            messages describing the error and why it occurred.
 //
-enum NetworkError: Error, LocalizedError {
+public enum NetworkError: Error, LocalizedError {
     case badURLResponse
     case urlBuildFailed
 
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .badURLResponse:
             return "Bad URL response!"
