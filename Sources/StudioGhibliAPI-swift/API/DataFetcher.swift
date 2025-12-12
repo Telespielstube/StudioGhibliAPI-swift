@@ -32,8 +32,7 @@ class DataFetcher {
         switch urlResponse?.statusCode {
         case 200:
             do {
-                let json = try JSONDecoder().decode(type, from: data)
-                return json
+                return try JSONDecoder().decode(type, from: data)
             } catch let error {
                 throw ParserError.decodingFailed(
                     underlyingError: error)

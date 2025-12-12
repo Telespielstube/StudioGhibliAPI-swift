@@ -8,11 +8,12 @@
 import Foundation
 
 @available(macOS 12.0, *)
-struct FilmQuery: Query, Filter {
+struct UrlQuery: Query, Filter {
+    
     let dataFetcher = DataFetcher()
 
-    func getAll(endpoint: String) async throws -> [Film] {
-        return try await dataFetcher.fetchData(url: endpoint, type: [Film].self)
+    func getAll<Data: Decodable>(endpoint: String, type: Data.Type) async throws -> [Data] {
+        return try await dataFetcher.fetchData(url: endpoint, type: [Data].self)
     }
     
     func filter<T: Equatable>(endpoint: String, filterBy keyPath: KeyPath<Film, T>, value: T) async throws -> [Film] {
