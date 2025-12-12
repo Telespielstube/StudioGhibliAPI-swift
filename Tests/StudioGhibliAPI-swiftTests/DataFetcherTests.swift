@@ -22,7 +22,7 @@ struct Test {
             )
         }
     }
-    
+
     @Test func testIfURLBuildThrowsErrorWhenEmptyResourceIsPassed() async throws
     {
         let dataFetcher = DataFetcher()

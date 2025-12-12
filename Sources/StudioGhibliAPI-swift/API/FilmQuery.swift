@@ -16,17 +16,7 @@ struct FilmQuery: Query {
         return try await dataFetcher.fetchData(url: endpoint, type: [Film].self)
     }
 
-    // It filters the fetched Film array by the passed filterBy parameter.
-    //
-    // - Parameters:
-    //          endpoint : The resource the data is being fetched from the Ghibli database.
-    //      filterByName : The condition the data is being filtered.
-    //
-    // - Returns: An array of film objects.
-    //
-    // - Throws:
-    //      ParserError: Is thrown if a parsing error occurs.
-    func filter(endpoint: String, filterByName: String) async throws -> [Film] {
+    func filter(endpoint: String, filterBy: String) async throws -> [Film] {
         do {
             let jsonContent = try await dataFetcher.fetchData(
                 url: endpoint,
