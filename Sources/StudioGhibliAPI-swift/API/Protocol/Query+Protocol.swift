@@ -22,11 +22,12 @@ protocol Query {
     //
     // - Parameters:
     //          endpoint : The resource the data is being fetched from the Ghibli database.
-    //      filterByName : The condition the data is being filtered.
+    //          filterBy : The condition the data is being filtered.
+    //          value    : The value to compare the data to.
     //
     // - Returns: An array of generic objects.
     //
     // - Throws:
     //      ParserError: Is thrown if a parsing error occurs.
-    func filter(endpoint: String, filterBy: String) async throws -> [Data]
+    func filter<T: Equatable>(endpoint: String, filterBy keyPath: KeyPath<Data, T>, value: T) async throws -> [Data]
 }

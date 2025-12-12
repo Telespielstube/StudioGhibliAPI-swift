@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 // Enum to delcare errors occuring during data parsing.
 // - Inheritances:
 //     Error: Any type that declares conformance to the Error protocol
@@ -20,12 +19,12 @@ import Foundation
 //
 enum ParserError: Error, LocalizedError {
     case decodingFailed(underlyingError: Error)
-    
-    
+
     var errorDescription: String? {
         switch self {
-        case .decodingFailed(underlyingError: error):
-            return "Error occured while trying to parse JSON data: \(error.localizedDescription)"
+        case .decodingFailed(underlyingError: let error):
+            return
+                "Error occured while trying to parse JSON data: \(error.localizedDescription)"
         }
     }
 }
@@ -41,16 +40,15 @@ enum ParserError: Error, LocalizedError {
 //            messages describing the error and why it occurred.
 //
 enum NetworkError: Error, LocalizedError {
-    case badURLResponse(underlyingError: Error)
+    case badURLResponse
     case urlBuildFailed
-    
+
     var errorDescription: String? {
         switch self {
-        case .badURLResponse(underlyingError: let error):
-            return "Bad URL response: \(error.localizedDescription)"
+        case .badURLResponse:
+            return "Bad URL response!"
         case .urlBuildFailed:
-            return "Failed to build URL."
+            return "Failed to build URL!"
         }
     }
 }
-

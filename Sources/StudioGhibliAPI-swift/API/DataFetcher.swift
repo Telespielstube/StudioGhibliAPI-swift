@@ -36,35 +36,12 @@ class DataFetcher {
                 return json
             } catch let error {
                 throw ParserError.decodingFailed(
-                    underlyingError: NSError(
-                        domain: "DataFetcher",
-                        code: -1,
-                        userInfo: [
-                            NSLocalizedDescriptionKey:
-                                "Decoding Error: \(error)"
-                        ]
-                    )
-                )
+                    underlyingError: error)
             }
         case 400, 404:
-            throw NetworkError.badURLResponse(
-                underlyingError: NSError(
-                    domain: "DataFetcher",
-                    code: urlResponse?.statusCode ?? -1,
-                    userInfo: [NSLocalizedDescriptionKey: "Bad URL Response"]
-                )
-            )
+            throw NetworkError.badURLResponse
         default:
-            throw NetworkError.badURLResponse(
-                underlyingError: NSError(
-                    domain: "DataFetcher",
-                    code: urlResponse?.statusCode ?? -1,
-                    userInfo: [
-                        NSLocalizedDescriptionKey:
-                            "Unexpected status code: \(urlResponse?.statusCode ?? -1)"
-                    ]
-                )
-            )
+            throw NetworkError.badURLResponse
         }
     }
 
@@ -76,18 +53,10 @@ class DataFetcher {
     // - Returns: A generic type of parsed json data.
     private func parseJSONData<T: Decodable>(_ data: Data) async throws -> T {
         do {
-            let parsedData = try JSONDecoder().decode(T.self, from: data)
+            return try JSONDecoder().decode(T.self, from: data)
         } catch let error as DecodingError {
             throw ParserError.decodingFailed(
-                underlyingError: NSError(
-                    domain: "DataFetcher",
-                    code: -1,
-                    userInfo: [
-                        NSLocalizedDescriptionKey:
-                            "Failed to decode JSON: \(error)"
-                    ]
-                )
-            )
+                underlyingError: error)
         }
     }
 
