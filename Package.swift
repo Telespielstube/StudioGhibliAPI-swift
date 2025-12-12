@@ -23,11 +23,12 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "StudioGhibliAPI-swift",
-            path: "Sources/StudioGhibliAPI-swift"
+            path: "Sources"
         ),
         .testTarget(
             name: "StudioGhibliAPI-swiftTests",
-            dependencies: ["StudioGhibliAPI-swift"]
+            dependencies: ["StudioGhibliAPI-swift"],
+            path: "Tests"
         ),
     ]
 )
