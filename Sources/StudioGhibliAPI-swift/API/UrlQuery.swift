@@ -16,7 +16,12 @@ public struct UrlQuery: Query, Filter {
     public func getAll<Data: Decodable>(endpoint: String, type: Data.Type)
         async throws -> [Data]
     {
-        return try await dataFetcher.fetchData(url: endpoint, type: [Data].self)
+        do {
+            let jsonContent = try await dataFetcher.fetchData(url: endpoint, type: [Data].self)
+            return jsonContent
+        } catch let error {
+            throw ParserError.decodingFailed(underlyingError: error)
+        }
     }
 
     public func filter<T: Equatable>(

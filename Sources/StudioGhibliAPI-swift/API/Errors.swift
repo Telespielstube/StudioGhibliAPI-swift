@@ -42,6 +42,7 @@ public enum ParserError: Error, LocalizedError {
 public enum NetworkError: Error, LocalizedError {
     case badURLResponse
     case urlBuildFailed
+    case invalidURL
 
     public var errorDescription: String? {
         switch self {
@@ -49,6 +50,8 @@ public enum NetworkError: Error, LocalizedError {
             return "Bad URL response!"
         case .urlBuildFailed:
             return "Failed to build URL!"
+        case .invalidURL:
+            return "Invalid URL! Check the spelling of the endpint parameter."
         }
     }
 }

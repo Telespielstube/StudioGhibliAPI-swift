@@ -6,16 +6,27 @@
 //
 
 import Testing
-
 @testable import StudioGhibliAPI_swift
 
-public struct Test {
-
-    @Test public func testIfURLBuildThrowsErrorWhenWrongResourceIsPassed() async throws
+public struct DataFetcherTests {
+    init() async throws {}
+    
+    @Test func testIfFilmGetFetched() async throws {
+        let dataFetcher = DataFetcher()
+        
+        let films: [Film] = try await dataFetcher.fetchData(
+            url: "films",
+            type: [Film].self
+        )
+        
+        #expect(!films.isEmpty)
+    }
+    
+    @Test func testIfURLBuildThrowsbadURLResponseWhenWrongResourceIsPassed() async throws
     {
         let dataFetcher = DataFetcher()
 
-        await #expect(throws: NetworkError.self) {
+        await #expect(throws: (NetworkError.badURLResponse).self) {
             try await dataFetcher.fetchData(
                 url: "marta",
                 type: Film.self
@@ -23,11 +34,11 @@ public struct Test {
         }
     }
 
-    @Test public func testIfURLBuildThrowsErrorWhenEmptyResourceIsPassed() async throws
+    @Test func testIfURLBuildThrowsInvalidURLWhenEmptyResourceIsPassed() async throws
     {
         let dataFetcher = DataFetcher()
 
-        await #expect(throws: NetworkError.self) {
+        await #expect(throws: NetworkError.invalidURL.self) {
             try await dataFetcher.fetchData(
                 url: "",
                 type: Film.self

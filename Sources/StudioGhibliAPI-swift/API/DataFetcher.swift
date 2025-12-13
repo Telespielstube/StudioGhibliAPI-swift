@@ -10,7 +10,7 @@ import Foundation
 /// This public class handles the
 ///
 @available(macOS 12.0, *)
-public class DataFetcher {
+public final class DataFetcher: Sendable {
 
     public init() {}
 
@@ -29,8 +29,15 @@ public class DataFetcher {
     public func fetchData<T: Decodable>(url: String, type: T.Type) async throws
         -> T
     {
-        let url = try buildURL(forEndpoint: url)
-        let (data, response) = try await URLSession.shared.data(from: url)
+        /// Guard is preferred when you want to validate preconditions early because:
+        /// It makes code less nested
+        /// It's clearer and the else block must exit the current scope (return, throw, break, continue, etc.)
+        guard !url.isEmpty else {
+            throw NetworkError.invalidURL
+        }
+
+        let validURL = try buildURL(forEndpoint: url)
+        let (data, response) = try await URLSession.shared.data(from: validURL)
         let urlResponse = response as? HTTPURLResponse
 
         switch urlResponse?.statusCode {
