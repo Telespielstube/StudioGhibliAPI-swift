@@ -10,13 +10,13 @@ import Foundation
 
 public struct Species: Codable, Identifiable {
     public let id: String
-    let name: String
-    let classification: String
-    let eyeColors: String
-    let hairColors: String
-    let people: [String]
-    let films: [String]
-    let url: String
+    public let name: String
+    public let classification: String
+    public let eyeColors: String
+    public let hairColors: String
+    public let people: [String]
+    public let films: [String]
+    public let url: String
     
     enum CodingKeys: String, CodingKey {
         case id, name, classification, people, films, url

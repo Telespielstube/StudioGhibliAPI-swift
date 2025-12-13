@@ -7,18 +7,17 @@
 
 import Foundation
 
-
 public struct People: Codable, Identifiable {
     public let id: String
-    let name: String
-    let gender: String
-    let age: String
-    let eyeColor: String
-    let hairColor: String
-    let films: [String]
-    let species: String
-    let url: String
-    
+    public let name: String
+    public let gender: String
+    public let age: String
+    public let eyeColor: String
+    public let hairColor: String
+    public let films: [String]
+    public let species: String
+    public let url: String
+
     enum CodingKeys: String, CodingKey {
         case id, name, gender, age, films, species, url
         case eyeColor = "eye_color"

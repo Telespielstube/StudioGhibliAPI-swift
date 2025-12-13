@@ -11,7 +11,7 @@ import Foundation
 ///
 @available(macOS 12.0, *)
 public class DataFetcher {
-    
+
     public init() {}
 
     // Decode received JSON data set from the Ghibli API.
@@ -26,7 +26,9 @@ public class DataFetcher {
     // - Error:
     //      NetworkError: Is thrown if a status code is not 200.
     //      ParserError: Is thorwn if a json parsing error occurs.
-    public func fetchData<T: Decodable>(url: String, type: T.Type) async throws -> T {
+    public func fetchData<T: Decodable>(url: String, type: T.Type) async throws
+        -> T
+    {
         let url = try buildURL(forEndpoint: url)
         let (data, response) = try await URLSession.shared.data(from: url)
         let urlResponse = response as? HTTPURLResponse
@@ -37,7 +39,8 @@ public class DataFetcher {
                 return try JSONDecoder().decode(type, from: data)
             } catch let error {
                 throw ParserError.decodingFailed(
-                    underlyingError: error)
+                    underlyingError: error
+                )
             }
         case 400, 404:
             throw NetworkError.badURLResponse
@@ -57,7 +60,8 @@ public class DataFetcher {
             return try JSONDecoder().decode(T.self, from: data)
         } catch let error as DecodingError {
             throw ParserError.decodingFailed(
-                underlyingError: error)
+                underlyingError: error
+            )
         }
     }
 

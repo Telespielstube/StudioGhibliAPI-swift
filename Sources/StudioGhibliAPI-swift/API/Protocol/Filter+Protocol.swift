@@ -11,6 +11,7 @@ import Foundation
 
 public protocol Filter {
     associatedtype Item
+    associatedtype Object
 
     // Filters the received data for the passed 'value' parameter.
     // - Protocols:
@@ -25,7 +26,7 @@ public protocol Filter {
     // - Returns: The equal object.
     func filter<T: Equatable>(
         endpoint: String,
-        filterBy keyPath: KeyPath<Film, T>,
+        filterBy keyPath: KeyPath<Object, T>,
         value: T
     ) async throws -> [Item]
 }

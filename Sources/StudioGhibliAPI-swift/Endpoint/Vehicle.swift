@@ -10,13 +10,13 @@ import Foundation
 
 public struct Vehicle: Codable, Identifiable {
     public let id: String
-    let name: String
-    let description: String
-    let vehicleClass: String
-    let length: String
-    let pilot: String
-    let films: [String]
-    let url: String
+    public let name: String
+    public let description: String
+    public let vehicleClass: String
+    public let length: String
+    public let pilot: String
+    public let films: [String]
+    public let url: String
     
     enum CodingKeys: String, CodingKey {
         case id, name, description, length, pilot, films, url
