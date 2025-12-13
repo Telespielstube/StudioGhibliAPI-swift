@@ -12,16 +12,8 @@ import Testing
 
 public struct UrlQueryTests {
     @Test
-    func testIfAllFilmsAreFetched() async throws {
-        let filmQuery = UrlQuery()
-        let films = try await filmQuery.getAll(endpoint: "films", type: Film.self)
-        #expect(films.count > 0)
-    }
-
-    @Test
     func testIfFilterFilmsByNameReturnsAtLeastOneFilmObject() async throws {
-        let filmQuery = UrlQuery()
-        let filteredFilms: [Film] = try await filmQuery.filter(
+        let filteredFilms: [Film] = try await UrlQuery<Film>.filter(
             endpoint: "films",
             filterBy: \Film.title,
             value: "Spirited Away"
@@ -29,28 +21,36 @@ public struct UrlQueryTests {
         #expect(filteredFilms.count > 0)
         #expect(filteredFilms[0].title.contains("Spirited Away"))
     }
-    
+
+    @Test
+    func testIfFilterVehicleByNameReturnsAtLeastOneVehicleObject() async throws
+    {
+        let filteredVehicles: [Vehicle] = try await UrlQuery<Vehicle>.filter(
+            endpoint: "vehicles",
+            filterBy: \Vehicle.name,
+            value: "Air Destroyer Goliath"
+        )
+        #expect(filteredVehicles.count > 0)
+        #expect(filteredVehicles[0].name.contains("Air Destroyer Goliath"))
+    }
+
     @Test func testIfFilmsGetAllFilms() async throws {
-        let ghibli = StudioGhibliAPI()
-        let content: [Film] = try await ghibli.query.getAll(
+        let content: [Film] = try await UrlQuery<Film>.getAll(
             endpoint: "films",
             type: Film.self
         )
         #expect(content.isEmpty == false)
-        #expect(content.count > 0)
+        #expect(content.count >= 22)
     }
-    
-    
-//    @Test func testIfGetAllThrowsParserErrorForWrongType() async throws {
-//        let ghibli = StudioGhibliAPI()
-//        
-//        #expect(throws: ParserError.self) {
-//            // We attempt to parse the 'films' data into a wrong type (e.g., 'Person')
-//            // and expect this operation to throw a ParserError.
-//            let _: [Film] = try await ghibli.query.getAll(
-//                endpoint: "films",
-//                type: .self
-//            )
-//        }
-//    }
+
+    @Test func testIfGetAllThrowsParserErrorForWrongType() async throws {
+        await #expect(throws: ParserError.self) {
+            // We attempt to parse the 'films' data into a wrong type (e.g., 'Person')
+            // and expect this operation to throw a ParserError.
+            let _: [Film] = try await UrlQuery<Film>.getAll(
+                endpoint: "films",
+                type: People.self
+            ) as! [Film]
+        }
+    }
 }

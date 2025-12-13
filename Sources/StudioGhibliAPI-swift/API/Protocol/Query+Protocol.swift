@@ -15,7 +15,7 @@ public protocol Query {
     //      endpoint: REST resource where the data is being fetched.
     //
     // Returns: An array of generic Ghibli database objects.
-    func getAll<Data: Decodable>(
+    static func getAll<Data: Decodable>(
         endpoint: String,
         type: Data.Type
     ) async throws -> [Data]

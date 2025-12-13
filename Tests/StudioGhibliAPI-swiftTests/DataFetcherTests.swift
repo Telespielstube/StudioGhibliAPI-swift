@@ -11,7 +11,7 @@ import Testing
 public struct DataFetcherTests {
     init() async throws {}
     
-    @Test func testIfFilmGetFetched() async throws {
+    @Test func testIfSllFilmGetFetched() async throws {
         let dataFetcher = DataFetcher()
         
         let films: [Film] = try await dataFetcher.fetchData(
@@ -20,6 +20,17 @@ public struct DataFetcherTests {
         )
         
         #expect(!films.isEmpty)
+    }
+    
+    @Test func testIfAllVehicleGetFetched() async throws {
+        let dataFetcher = DataFetcher()
+        
+        let vehicle: [Vehicle] = try await dataFetcher.fetchData(
+            url: "vehicles",
+            type: [Vehicle].self
+        )
+        
+        #expect(!vehicle.isEmpty)
     }
     
     @Test func testIfURLBuildThrowsbadURLResponseWhenWrongResourceIsPassed() async throws

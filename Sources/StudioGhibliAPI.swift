@@ -10,9 +10,5 @@
 @available(macOS 12.0, *)
 
 public final class StudioGhibliAPI {
-    public let query: UrlQuery
-
-    public init() {
-        self.query = UrlQuery()
-    }
+    public init() {}
 }

@@ -24,7 +24,7 @@ public protocol Filter {
     //          value: The value of the comparison. Could be "Spirited Away"
     //
     // - Returns: The equal object.
-    func filter<T: Equatable>(
+    static func filter<T: Equatable>(
         endpoint: String,
         filterBy keyPath: KeyPath<Object, T>,
         value: T
