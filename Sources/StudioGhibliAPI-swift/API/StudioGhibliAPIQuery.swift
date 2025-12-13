@@ -8,7 +8,7 @@
 import Foundation
 
 @available(macOS 12.0, *)
-public struct UrlQuery<DataType: Decodable>: Query, Filter {
+public struct StudioGhibliAPIQuery<DataType: Decodable>: Query, Filter {
     public typealias Item = DataType
     public typealias Object = DataType
     
