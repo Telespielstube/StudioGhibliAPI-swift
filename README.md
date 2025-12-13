@@ -1,3 +1,5 @@
+# StudioGhibliAPI-swift
+
 A Swift package to access the StudioGhibliAPI website [Studio Ghibli API](https://ghibliapi.vercel.app/)
 
 
